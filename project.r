@@ -56,10 +56,40 @@ make_sentiws_weights <- function(corpus_name) {
   return(emwords_sum)
 }
 
-emwords_head <- make_sentiws_weights(jf_head_corpus)
-emwords_subheads <- make_sentiws_weights(jf_subhead_corpus)
-emwords_text <- make_sentiws_weights(jf_text_corpus)
+# jf_text_w <- dfm(jf_head_corpus, dictionary = sentiment.lexikon.sentiws)
+# jf_weight <- dfm_weight(jf_text_w, scheme = "logave")
+# dfm_converted <- convert(jf_weight, "data.frame")
+# mean(dfm_converted$negative)
 
-total_tokens <- sum(quanteda::ntoken(jf_text_corpus))
+jf_emwords_head <- make_sentiws_weights(jf_head_corpus)
+jf_emwords_subheads <- make_sentiws_weights(jf_subhead_corpus)
+jf_emwords_text <- make_sentiws_weights(jf_text_corpus)
 
+jf_rel_freq_head <- make_sentiws_weights(jf_head_corpus)/sum(quanteda::ntoken(jf_head_corpus))
+jf_text_total <- sum(quanteda::ntoken(jf_text_corpus))
 
+# counting exclamation and question marks as indicators
+
+# tokenize corpora
+
+search_punct <- function(punct, corpus) {
+  corp_tokens <- tokens(corpus)
+  keyword <- c(punct)
+  kw_df <- as.data.frame(kwic(corp_tokens, keyword, window = 0))
+  return(length(kw_df$keyword))
+}
+
+jf_head_excl <- search_punct("!", jf_head_corpus)*2
+jf_subhead_excl <- search_punct("!", jf_subhead_corpus)*2
+jf_text_excl <- search_punct("!", jf_text_corpus)*2
+
+jf_head_q <- search_punct("?", jf_head_corpus)*2
+jf_subhead_q <- search_punct("?", jf_subhead_corpus)*2
+jf_text_q <- search_punct("?", jf_text_corpus)*2
+
+# formula: emwords + excl * 2 + q / total tokens
+calc_score_jf_head =  (jf_emwords_head + jf_head_excl + jf_head_q)/sum(quanteda::ntoken(jf_head_corpus))
+
+calc_score <- function(emwords, excls, qs, total) {
+  return((emwords + excl + qs)/total)
+}
