@@ -17,9 +17,8 @@ R 4.1.2 with the following modules:
 quanteda, readtext, tidyverse, tm
 
 ## HOW TO USE
-1.  Unpack the pre-compiled corpus in the root directory of the project. 
-If you want to use your own links or expand on the corpus, simply modify ts-urls.txt and jf-urls.txt instead and use the following command:
-`python scraper.py`
+1. Optional: If you want to use your own links or expand on the corpus, simply modify ts-urls.txt and jf-urls.txt and use the following command:
+`python scraper.py`. The new .csv-files will appear in the root directory of the project. It is recommended to use the given corpus.
 2. Open RStudio and run 'emscore.r'. The results will be saved in 'results.csv' for potential further development. A graph presenting the results will be saved in the root directory of the project.
 
 ## PROBLEMS/BUGS
