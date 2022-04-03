@@ -20,7 +20,7 @@ quanteda, readtext, tidyverse, tm
 1.  Unpack the pre-compiled corpus in the root directory of the project. 
 If you want to use your own links or expand on the corpus, simply modify ts-urls.txt and jf-urls.txt instead and use the following command:
 `python scraper.py`
-2. Open RStudio and run insert script name here. A graph presenting the results will be saved in the root directory of the project.
+2. Open RStudio and run insert script name here. The results will be saved in 'results.csv' for potential further development. A graph presenting the results will be saved in the root directory of the project.
 
 ## Author: 
 Lea Wetzke / 797451 / Automatische Textanalyse in den Politikwissenschaften WiSe 2021/22 / [lwetzke@uni-potsdam.de](mailto:lwetzke@uni-potsdam.de)
