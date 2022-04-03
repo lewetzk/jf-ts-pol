@@ -63,7 +63,7 @@ class JFWebScraper():
         # extract separate paragraphs from html and join together into one big string
         subheads = text_news[0].find_all('h3')
         for subhead in subheads:
-            self.subheadlines += subhead.get_text()+'. '
+            self.subheadlines += subhead.get_text()+' '
             # separate subheadlines with dot
 
 
@@ -120,25 +120,28 @@ class TSWebScraper():
         # get subheadlines
         subheads = text_news[0].find_all('h2')
         for subhead in subheads:
-            self.subheadlines += subhead.get_text()+'. '
+            self.subheadlines += subhead.get_text()+' '
 
 
 if __name__ == "__main__":
     f = open('jf-urls.txt', 'r')
     counter = 0
+    print("collecting JF data...")
     for line in f:
         if line != '':
             wscrape = JFWebScraper(line)
             wscrape.scrape()
             wscrape._write_file(f'jf-{counter}.csv')
+            print(f'article {counter} scraped')
             counter += 1
 
     t = open('ts-urls.txt', 'r')
+    print("collecting TS data...")
     counter = 0
     for line in t:
         if line != '':
-            print(line)
             tscrape = TSWebScraper(line)
             tscrape.scrape()
             tscrape._write_file(f'ts-{counter}.csv')
+            print(f'article {counter} scraped')
             counter += 1
