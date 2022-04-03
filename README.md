@@ -22,5 +22,8 @@ If you want to use your own links or expand on the corpus, simply modify ts-urls
 `python scraper.py`
 2. Open RStudio and run 'emscore.r'. The results will be saved in 'results.csv' for potential further development. A graph presenting the results will be saved in the root directory of the project.
 
+## PROBLEMS/BUGS
+As the Junge Freiheit serves seem instable sometimes, a maximum runtime exceeded error might occur during the scraping process. In such cases, run the scraper again or discard the problematic URL.
+
 ## Author: 
 Lea Wetzke / 797451 / Automatische Textanalyse in den Politikwissenschaften WiSe 2021/22 / [lwetzke@uni-potsdam.de](mailto:lwetzke@uni-potsdam.de)
