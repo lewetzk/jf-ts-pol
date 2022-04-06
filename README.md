@@ -24,7 +24,7 @@ quanteda, readtext, tidyverse, tm
 As the Junge Freiheit serves seem instable sometimes, a maximum runtime exceeded error might occur during the scraping process. In such cases, run the scraper again or discard the problematic URL.
 
 ## REFERENCES
-This project uses a prepackaged .Rdata form of the SentiWS corpus made by Cornelius Puschmann: https://github.com/cbpuschmann/inhaltsanalyse-mit-r.de
+This project uses a prepackaged .Rdata form of the SentiWS lexikon (originally by R. Remus, U. Quasthoff & G. Heyer: https://wortschatz.uni-leipzig.de/de/download) made by C. Puschmann: https://github.com/cbpuschmann/inhaltsanalyse-mit-r.de
 
 ## Author: 
 Lea Wetzke / 797451 / Automatische Textanalyse in den Politikwissenschaften WiSe 2021/22 / [lwetzke@uni-potsdam.de](mailto:lwetzke@uni-potsdam.de)
