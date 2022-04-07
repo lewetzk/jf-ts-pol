@@ -98,11 +98,12 @@ search_punct <- function(punct, corpus) {
   return(length(kw_df$keyword))
 }
 
+# function for calculating polarity score of a single corpus
 calc_score <- function(corpus_name) {
   # arguments: 
-  #     punct (str): string with punctuation (like "!")
+  #     corpus_name (corpus): variable name of the corpus
   # returns:
-  #     length of the keyword column: equivalent to amount of occurrences
+  #     float produced by applying pol score formula
   sentiwords = make_sentiws_weights(corpus_name)
   # calculate SentiWS weights
   excl = search_punct("!", corpus_name)
@@ -111,6 +112,29 @@ calc_score <- function(corpus_name) {
   total = sum(quanteda::ntoken(corpus_name))
   # calculate total amount of tokens
   return((sentiwords + (excl*2) + (qs*0.4))/total)
+  # apply formula to calculate score
+}
+
+# function for calculating combined polarity score of two corpora
+calc_score_sum <- function(corpus_name_1, corpus_name_2) {
+  # arguments: 
+  #     corpus_name_1 (corpus): variable name of the first corpus
+  #     corpus_name_2 (corpus): variable name of the first corpus
+  # returns:
+  #     float calculated by applying polarity score formula
+  sentiwords_1 = make_sentiws_weights(corpus_name_1)
+  sentiwords_2 = make_sentiws_weights(corpus_name_2)
+  # calculate SentiWS weights
+  excl_1 = search_punct("!", corpus_name_1)
+  excl_2 = search_punct("!", corpus_name_2)
+  qs_1 = search_punct("?", corpus_name_1)
+  qs_2 = search_punct("?", corpus_name_2)
+  # calculate punctuation scores
+  total_1 = sum(quanteda::ntoken(corpus_name_1))
+  total_2 = sum(quanteda::ntoken(corpus_name_2))
+  # calculate total amount of tokens
+  return(((sentiwords_1 + sentiwords_2) + ((excl_1 + excl_2)*2) + 
+          ((qs_1 + qs_2)*0.4))/(total_1 + total_2))
   # apply formula to calculate score
 }
 
@@ -140,12 +164,14 @@ final_plot <- data_tibble %>%
   ggplot(aes(names,scores))+
   geom_col() +
   labs(title="polarization-score")
-final_plot + theme_grey(base_size = 15)
+final_plot + theme_grey(base_size = 19)
 ggsave("final_barplot.png")
 # make bar plot
 
-scores_sum <- c(calc_score_jf_head, (calc_score_jf_subhead + calc_score_jf_text), 
-              calc_score_ts_head, (calc_score_ts_subhead + calc_score_ts_text)) 
+scores_sum <- c(calc_score_jf_head, calc_score_sum(jf_subhead_corpus, 
+                                                    jf_text_corpus), 
+              calc_score_ts_head, calc_score_sum(ts_subhead_corpus, 
+                                                 ts_text_corpus))  
 names_sum <- c("JF head", "JF subhead + JF text", 
                "TS head", "TS subhead + TS text")
 
@@ -157,7 +183,7 @@ sum_plot <- data_tibble_sum %>%
   ggplot(aes(names_sum,scores_sum))+
   geom_col() +
   labs(title="polarization-score")
-sum_plot + theme_grey(base_size = 15)
+sum_plot + theme_grey(base_size = 16)
 ggsave("sum_barplot.png")
 # make bar plot
 
@@ -185,6 +211,6 @@ senti_plot <- data_tibble_senti %>%
   ggplot(aes(names_senti,scores_senti))+
   geom_col() +
   labs(title="senti-score")
-senti_plot + theme_grey(base_size = 15)
+senti_plot + theme_grey(base_size = 19)
 ggsave("senti_barplot.png")
 # make bar plot
