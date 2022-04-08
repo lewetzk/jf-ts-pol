@@ -13,6 +13,8 @@ install.packages("tm")
 ### and text of articles published by Junge Freiheit and Tagesschau in order
 ### to calculate a 'polarization' score and compare said scores in a graphical
 ### manner. The score is mainly calculated via SentiWS scores.
+### The .Rdata-version of SentiWS was compiled by Cornelius Puschmann
+### https://github.com/cbpuschmann/inhaltsanalyse-mit-r.de
 
 ### package set up ###
 require(readtext)
@@ -66,7 +68,7 @@ ts_text_corpus <- make_corp(ts_dfs, "TEXT")
 
 ### functions used for score calculations ###
 
-# function for calculating total occurences of 'emotional' words in a corpus
+# function for calculating total occurrences of 'emotional' words in a corpus
 # emotional words = words with sentiws entry, nevermind if pos or neg
 make_sentiws_weights <- function(corpus_name) {
   # arguments: 
@@ -185,32 +187,4 @@ sum_plot <- data_tibble_sum %>%
   labs(title="polarization-score")
 sum_plot + theme_grey(base_size = 16)
 ggsave("sum_barplot.png")
-# make bar plot
-
-senti_jf_head <- make_sentiws_weights(jf_head_corpus)/
-                 sum(quanteda::ntoken(jf_head_corpus))
-senti_jf_subhead <- make_sentiws_weights(jf_subhead_corpus)/
-                    sum(quanteda::ntoken(jf_subhead_corpus))
-senti_jf_text <- make_sentiws_weights(ts_text_corpus)/
-                 sum(quanteda::ntoken(jf_text_corpus))
-senti_ts_head <- make_sentiws_weights(ts_head_corpus)/
-                 sum(quanteda::ntoken(ts_head_corpus))
-senti_ts_subhead <- make_sentiws_weights(ts_subhead_corpus)/
-                    sum(quanteda::ntoken(ts_subhead_corpus))
-senti_ts_text <- make_sentiws_weights(ts_text_corpus)/
-                 sum(quanteda::ntoken(ts_text_corpus))
-# calculate relative frequency of sentiws words for senti words only version
-scores_senti <- c(senti_jf_head, senti_jf_subhead, senti_jf_text, senti_ts_head,
-                  senti_ts_subhead, senti_ts_text) 
-names_senti <- c("JF head", "JF subhead", "JF text", 
-                 "TS head", "TS subhead", "TS text")
-final_senti_data <- data.frame(names_senti, scores_senti)
-data_tibble_senti <- as_tibble(final_senti_data)
-
-senti_plot <- data_tibble_senti %>% 
-  ggplot(aes(names_senti,scores_senti))+
-  geom_col() +
-  labs(title="senti-score")
-senti_plot + theme_grey(base_size = 19)
-ggsave("senti_barplot.png")
 # make bar plot
