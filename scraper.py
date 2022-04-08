@@ -129,19 +129,29 @@ if __name__ == "__main__":
     print("collecting JF data...")
     for line in f:
         if line != '':
-            wscrape = JFWebScraper(line)
-            wscrape.scrape()
-            wscrape._write_file(f'jf-{counter}.csv')
-            print(f'article {counter} scraped')
-            counter += 1
+			try:
+				wscrape = JFWebScraper(line)
+				wscrape.scrape()
+				wscrape._write_file(f'jf-{counter}.csv')
+				print(f'article {counter} scraped')
+				counter += 1
+			except:
+				print(f"URL not reachable. Replace URL {counter-1} \
+						in the URL txt file or try later")
+				pass 
 
     t = open('ts-urls.txt', 'r')
     print("collecting TS data...")
     counter = 0
     for line in t:
         if line != '':
-            tscrape = TSWebScraper(line)
-            tscrape.scrape()
-            tscrape._write_file(f'ts-{counter}.csv')
-            print(f'article {counter} scraped')
-            counter += 1
+			try:
+				tscrape = TSWebScraper(line)
+				tscrape.scrape()
+				tscrape._write_file(f'ts-{counter}.csv')
+				print(f'article {counter} scraped')
+				counter += 1
+			except:
+				print(f"URL not reachable. Replace URL {counter-1} \
+						in the URL txt file or try later")
+				pass				
