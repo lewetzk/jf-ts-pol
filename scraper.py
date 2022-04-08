@@ -35,7 +35,7 @@ class JFWebScraper():
             # first row for column names
             results_writer.writerow(
                 [self.headline, self.subheadlines, self.paragraphs])
-                # following rows: data
+            # following rows: data
 
     def scrape(self):
         """Function that scrapes data from a Junge Freiheit article URL.
@@ -129,29 +129,29 @@ if __name__ == "__main__":
     print("collecting JF data...")
     for line in f:
         if line != '':
-			try:
-				wscrape = JFWebScraper(line)
-				wscrape.scrape()
-				wscrape._write_file(f'jf-{counter}.csv')
-				print(f'article {counter} scraped')
-				counter += 1
-			except:
-				print(f"URL not reachable. Replace URL {counter-1} \
+            try:
+                wscrape = JFWebScraper(line)
+                wscrape.scrape()
+                wscrape._write_file(f'jf-{counter}.csv')
+                print(f'article {counter} scraped')
+                counter += 1
+            except:
+                print(f"URL not reachable. Replace URL {counter-1} \
 						in the URL txt file or try later")
-				pass 
+                pass
 
     t = open('ts-urls.txt', 'r')
     print("collecting TS data...")
     counter = 0
     for line in t:
         if line != '':
-			try:
-				tscrape = TSWebScraper(line)
-				tscrape.scrape()
-				tscrape._write_file(f'ts-{counter}.csv')
-				print(f'article {counter} scraped')
-				counter += 1
-			except:
-				print(f"URL not reachable. Replace URL {counter-1} \
+            try:
+                tscrape = TSWebScraper(line)
+                tscrape.scrape()
+                tscrape._write_file(f'ts-{counter}.csv')
+                print(f'article {counter} scraped')
+                counter += 1
+            except:
+                print(f"URL not reachable. Replace URL {counter-1} \
 						in the URL txt file or try later")
-				pass				
+                pass
