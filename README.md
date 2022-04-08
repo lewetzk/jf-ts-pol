@@ -19,7 +19,7 @@ quanteda, readtext, tidyverse, tm
 ## HOW TO USE
 1. (Optional): If you want to use your own links or expand on the corpus, simply modify ts-urls.txt and jf-urls.txt, delete the corpus folder, and use the following command:
 `python scraper.py`. The new .csv-files will appear in the root directory of the project. It is recommended to use the given corpus.
-2. Open RStudio and run 'polscore.r'. The results will be saved in 'results.csv' for potential further development. Two graphs presenting the results will be saved in the root directory of the project.
+2. Open RStudio and run 'polscore.r'. The results will be saved in 'results.csv' for potential further development. Two graphs presenting the results will be saved in the root directory of the project. If you want to rerun the script after installing the requirements, simply run all code below 'requirements installation' to skip reinstalling the requirements.
 
 ## PROBLEMS/BUGS
 As the Junge Freiheit serves seem somewhat instable, a maximum runtime exceeded error or a long wait time might occur during the scraping process. In such cases, run the scraper again or discard the problematic URL. The scraper will automatically skip the unreachable URL after a connection timeout.
