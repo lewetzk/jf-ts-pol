@@ -22,7 +22,7 @@ quanteda, readtext, tidyverse, tm
 2. Open RStudio and run 'polscore.r'. The results will be saved in 'results.csv' for potential further development. Two graphs presenting the results will be saved in the root directory of the project.
 
 ## PROBLEMS/BUGS
-As the Junge Freiheit serves seem somewhat instable, a maximum runtime exceeded error or a long wait time might occur during the scraping process. In such cases, run the scraper again or discard the problematic URL.
+As the Junge Freiheit serves seem somewhat instable, a maximum runtime exceeded error or a long wait time might occur during the scraping process. In such cases, run the scraper again or discard the problematic URL. The scraper will automatically skip the unreachable URL after a connection timeout.
 
 ## REFERENCES
 This project uses a prepackaged .Rdata form of the SentiWS lexikon (originally by R. Remus, U. Quasthoff & G. Heyer: https://wortschatz.uni-leipzig.de/de/download) made by C. Puschmann: https://github.com/cbpuschmann/inhaltsanalyse-mit-r.de
